@@ -40,6 +40,7 @@ def get_column_map():
     for identifier, candidate_col in candidate_map.items():
         for col, suffix in column_suffixes.items():
             column_map[col + identifier] = candidate_col + suffix
+    return column_map
 
 
 def sum_advance_columns(df):
@@ -75,13 +76,13 @@ def read_county_txt(county):
     return result
 
 
-def create_absentee_ballots_csv():
+def create_absentee_ballots_df():
     counties = os.listdir("./data/")
     county_dataframes = [read_county_txt(county) for county in counties]
     df = pandas.concat(county_dataframes, ignore_index=True, sort=True)
     new_names = {"Ben_Hill": "Ben Hill", "Jeff_Davis": "Jeff Davis"}
     df["COUNTY"] = df["COUNTY"].apply(lambda p: new_names.get(p, p))
-    df.to_csv("./GA_precincts_with_absentee.csv", index=False)
+    return df
 
 
 def fix_shapefile_county_name(df):
@@ -95,7 +96,8 @@ def fix_shapefile_county_name(df):
 
 
 def main():
-    create_absentee_ballots_csv()
+    df = create_absentee_ballots_df()
+    df.to_csv("./GA_precincts_with_absentee.csv", index=False)
 
 
 if __name__ == "__main__":
