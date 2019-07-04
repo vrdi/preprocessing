@@ -3,7 +3,7 @@ Worksheet "2" has been exported to CSV for the following counties:
 * [ ]Appling
 * [ ]Atkinson
 * [ ]Bacon
-* [ ]Baker
+* [x]Baker
 * [ ]Baldwin
 * [ ]Banks
 * [ ]Barrow
